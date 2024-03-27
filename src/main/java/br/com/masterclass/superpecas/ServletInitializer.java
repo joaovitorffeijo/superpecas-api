@@ -1,4 +1,4 @@
-package br.com.masterclass.demosuperpecas;
+package br.com.masterclass.superpecas;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

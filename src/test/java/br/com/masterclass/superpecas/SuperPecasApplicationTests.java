@@ -1,4 +1,4 @@
-package br.com.masterclass.demosuperpecas;
+package br.com.masterclass.superpecas;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

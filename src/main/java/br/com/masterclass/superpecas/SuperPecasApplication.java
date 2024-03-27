@@ -1,4 +1,4 @@
-package br.com.masterclass.demosuperpecas;
+package br.com.masterclass.superpecas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
