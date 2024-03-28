@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -41,6 +42,7 @@ public class PartServiceImpl implements PartService {
         return partRespository.findByNameByPage(name, PageRequest.of(page, size)).map(PartDTO::new);
     }
 
+    @Transactional
     @Override
     public PartDTO save(PartDTO partDTO) {
         Part part = new Part();
@@ -50,6 +52,7 @@ public class PartServiceImpl implements PartService {
         return new PartDTO(partRespository.save(part));
     }
 
+    @Transactional
     @Override
     public PartDTO update(PartDTO partDTO) {
         Part part = partRespository.findById(partDTO.getId()).orElse(null);
@@ -62,11 +65,13 @@ public class PartServiceImpl implements PartService {
         return new PartDTO(partRespository.save(part));
     }
 
+    @Transactional
     @Override
     public void delete(Long id) {
         partRespository.deleteById(id);
     }
 
+    @Transactional
     @Override
     public void deleteMultiple(List<Long> ids) {
         partRespository.deleteAllById(ids);

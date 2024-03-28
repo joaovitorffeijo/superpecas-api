@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -35,6 +36,7 @@ public class CarServiceImpl implements CarService {
         return carRepository.findByModelNameByPage(modelName, PageRequest.of(page, size)).map(CarDTO::new);
     }
 
+    @Transactional
     @Override
     public CarDTO save(CarDTO carDTO) {
         Car car = new Car();
@@ -44,6 +46,7 @@ public class CarServiceImpl implements CarService {
         return new CarDTO(carRepository.save(car));
     }
 
+    @Transactional
     @Override
     public CarDTO update(CarDTO carDTO) {
         Car car = carRepository.findById(carDTO.getId()).orElse(null);
@@ -56,11 +59,13 @@ public class CarServiceImpl implements CarService {
         return new CarDTO(carRepository.save(car));
     }
 
+    @Transactional
     @Override
     public void delete(Long id) {
         carRepository.deleteById(id);
     }
 
+    @Transactional
     @Override
     public void deleteMultiple(List<Long> ids) {
         carRepository.deleteAllById(ids);
