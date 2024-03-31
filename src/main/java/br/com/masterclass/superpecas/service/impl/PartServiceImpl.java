@@ -26,7 +26,6 @@ public class PartServiceImpl implements PartService {
     @Autowired
     CarRepository carRepository;
 
-
     @Override
     public Page<PartDTO> getAllByPage(int page, int size) {
         return partRespository.getAllByPage(PageRequest.of(page, size)).map(PartDTO::new);

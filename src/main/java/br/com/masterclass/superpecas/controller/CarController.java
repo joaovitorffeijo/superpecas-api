@@ -1,9 +1,11 @@
 package br.com.masterclass.superpecas.controller;
 
+import br.com.masterclass.superpecas.model.ApiResponse;
 import br.com.masterclass.superpecas.model.DTO.CarDTO;
 import br.com.masterclass.superpecas.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,39 +18,39 @@ public class CarController {
     CarService carService;
 
     @RequestMapping(value = "/page", method = RequestMethod.GET)
-    public Page<CarDTO> getAllByPage(@RequestParam int page, @RequestParam int size) {
-        return carService.getAllByPage(page, size);
+    public ApiResponse<CarDTO> getAllByPage(@RequestParam int page, @RequestParam int size) {
+        return new ApiResponse<>(HttpStatus.OK.value(), "All cars returned successfully", carService.getAllByPage(page, size));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public CarDTO findById(@PathVariable Long id) {
-        return carService.findById(id);
+    public ApiResponse<CarDTO> findById(@PathVariable Long id) {
+        return new ApiResponse<>(HttpStatus.OK.value(), "Cars returned successfully", carService.findById(id));
     }
 
     @RequestMapping(value = "/modelName", method = RequestMethod.GET)
-    public Page<CarDTO> findByModelNameByPage(@RequestParam String modelName, @RequestParam int page, @RequestParam int size) {
-        return  carService.findByModelNameByPage(modelName, page, size);
+    public ApiResponse<CarDTO> findByModelNameByPage(@RequestParam String modelName, @RequestParam int page, @RequestParam int size) {
+        return  new ApiResponse<>(HttpStatus.OK.value(), "All cars returned successfully", carService.findByModelNameByPage(modelName, page, size));
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public CarDTO save(@RequestBody CarDTO carDTO) {
-        return carService.save(carDTO);
+    public ApiResponse<CarDTO> save(@RequestBody CarDTO carDTO) {
+        return new ApiResponse<>(HttpStatus.OK.value(), "Car saved successfully", carService.save(carDTO));
     }
 
     @RequestMapping(value = "/", method = RequestMethod.PUT)
-    public CarDTO update(@RequestBody CarDTO carDTO) {
-        return carService.update(carDTO);
+    public ApiResponse<CarDTO> update(@RequestBody CarDTO carDTO) {
+        return new ApiResponse<>(HttpStatus.OK.value(), "Car updated successfully", carService.update(carDTO));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public String delete(@PathVariable Long id) {
+    public ApiResponse<Void> delete(@PathVariable Long id) {
         carService.delete(id);
-        return "Deletado com sucesso!";
+        return new ApiResponse<>(HttpStatus.OK.value(), "Car deleted successfully", null);
     }
 
     @RequestMapping(value = "/multiple/{ids}", method = RequestMethod.DELETE)
-    public String deleteMultiple(@PathVariable List<Long> ids) {
+    public ApiResponse<Void> deleteMultiple(@PathVariable List<Long> ids) {
         carService.deleteMultiple(ids);
-        return "Deletados com sucesso!";
+        return new ApiResponse<>(HttpStatus.OK.value(), "Cars deleted successfully", null);
     }
 }
