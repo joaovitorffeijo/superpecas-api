@@ -18,8 +18,8 @@ public class PartController {
     PartService partService;
 
     @RequestMapping(value = "/page", method = RequestMethod.GET)
-    public ApiResponse<Page<PartDTO>> getAllByPage(@RequestParam int page, @RequestParam int size) {
-        return new ApiResponse<>(HttpStatus.OK.value(), "All parts returned successfully", partService.getAllByPage(page, size));
+    public ApiResponse<Page<PartDTO>> getAllByPage(@RequestParam String name, @RequestParam int page, @RequestParam int size) {
+        return new ApiResponse<>(HttpStatus.OK.value(), "All parts returned successfully", partService.getAllByPage(name, page, size));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -27,9 +27,9 @@ public class PartController {
         return new ApiResponse<>(HttpStatus.OK.value(), "Part returned successfully", partService.findById(id));
     }
 
-    @RequestMapping(value = "/name", method = RequestMethod.GET)
-    public ApiResponse<Page<PartDTO>> findByNameByPage(@RequestParam String name, @RequestParam int page, @RequestParam int size) {
-        return new ApiResponse<>(HttpStatus.OK.value(), "All parts returned successfully", partService.findByNameByPage(name, page, size));
+    @RequestMapping(value = "/manufactures", method = RequestMethod.GET)
+    public ApiResponse<List<String>> getManufacturerList() {
+        return new ApiResponse<>(HttpStatus.OK.value(), "All parts manufacturers returned successfully", partService.getManufacturerList());
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)

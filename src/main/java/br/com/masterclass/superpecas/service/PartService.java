@@ -6,11 +6,11 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface PartService {
-    Page<PartDTO> getAllByPage(int page, int size);
+    Page<PartDTO> getAllByPage(String name, int page, int size);
 
     PartDTO findById(Long id);
 
-    Page<PartDTO> findByNameByPage(String modelName, int page, int size);
+    List<String> getManufacturerList();
 
     PartDTO save(PartDTO PartDTO);
 

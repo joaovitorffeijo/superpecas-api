@@ -7,11 +7,13 @@ import java.util.List;
 
 public interface CarService {
 
-    Page<CarDTO> getAllByPage(int page, int size);
+    Page<CarDTO> getAllByPage(String modelName, int page, int size);
 
     CarDTO findById(Long id);
 
-    Page<CarDTO> findByModelNameByPage(String modelName, int page, int size);
+    List<String> getManufacturerList();
+
+    List<CarDTO> getCarList();
 
     CarDTO save(CarDTO carDTO);
 

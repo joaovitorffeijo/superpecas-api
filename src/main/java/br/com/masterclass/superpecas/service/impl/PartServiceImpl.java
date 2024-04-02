@@ -27,8 +27,8 @@ public class PartServiceImpl implements PartService {
     CarRepository carRepository;
 
     @Override
-    public Page<PartDTO> getAllByPage(int page, int size) {
-        return partRespository.getAllByPage(PageRequest.of(page, size)).map(PartDTO::new);
+    public Page<PartDTO> getAllByPage(String name, int page, int size) {
+        return partRespository.getAllByPage(name, PageRequest.of(page, size)).map(PartDTO::new);
     }
 
     @Override
@@ -37,8 +37,8 @@ public class PartServiceImpl implements PartService {
     }
 
     @Override
-    public Page<PartDTO> findByNameByPage(String name, int page, int size) {
-        return partRespository.findByNameByPage(name, PageRequest.of(page, size)).map(PartDTO::new);
+    public List<String> getManufacturerList() {
+        return partRespository.getManufacturerList();
     }
 
     @Transactional

@@ -18,8 +18,8 @@ public class CarController {
     CarService carService;
 
     @RequestMapping(value = "/page", method = RequestMethod.GET)
-    public ApiResponse<CarDTO> getAllByPage(@RequestParam int page, @RequestParam int size) {
-        return new ApiResponse<>(HttpStatus.OK.value(), "All cars returned successfully", carService.getAllByPage(page, size));
+    public ApiResponse<CarDTO> getAllByPage(@RequestParam String modelName, @RequestParam int page, @RequestParam int size) {
+        return new ApiResponse<>(HttpStatus.OK.value(), "All cars returned successfully", carService.getAllByPage(modelName, page, size));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -27,9 +27,14 @@ public class CarController {
         return new ApiResponse<>(HttpStatus.OK.value(), "Cars returned successfully", carService.findById(id));
     }
 
-    @RequestMapping(value = "/modelName", method = RequestMethod.GET)
-    public ApiResponse<CarDTO> findByModelNameByPage(@RequestParam String modelName, @RequestParam int page, @RequestParam int size) {
-        return  new ApiResponse<>(HttpStatus.OK.value(), "All cars returned successfully", carService.findByModelNameByPage(modelName, page, size));
+    @RequestMapping(value = "/manufactures", method = RequestMethod.GET)
+    public ApiResponse<List<String>> getManufacturerList() {
+        return new ApiResponse<>(HttpStatus.OK.value(), "All cars manufacturers returned successfully", carService.getManufacturerList());
+    }
+
+    @RequestMapping(value = "/cars", method = RequestMethod.GET)
+    public ApiResponse<List<CarDTO>> getCarList() {
+        return new ApiResponse<>(HttpStatus.OK.value(), "All cars returned successfully", carService.getCarList());
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)

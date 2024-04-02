@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service("CarService")
 public class CarServiceImpl implements CarService {
@@ -22,8 +23,8 @@ public class CarServiceImpl implements CarService {
     CarRepository carRepository;
 
     @Override
-    public Page<CarDTO> getAllByPage(int page, int size) {
-        return carRepository.getAllByPage(PageRequest.of(page, size)).map(CarDTO::new);
+    public Page<CarDTO> getAllByPage(String modelName, int page, int size) {
+        return carRepository.getAllByPage(modelName, PageRequest.of(page, size)).map(CarDTO::new);
     }
 
     @Override
@@ -32,8 +33,13 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Page<CarDTO> findByModelNameByPage(String modelName, int page, int size) {
-        return carRepository.findByModelNameByPage(modelName, PageRequest.of(page, size)).map(CarDTO::new);
+    public List<String> getManufacturerList() {
+        return carRepository.getManufacturerList();
+    }
+
+    @Override
+    public List<CarDTO> getCarList() {
+        return carRepository.getCarList().stream().map(CarDTO::new).collect(Collectors.toList());
     }
 
     @Transactional
